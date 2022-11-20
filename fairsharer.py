@@ -21,15 +21,20 @@ def fair_sharer(values, num_iterations, share=0.1):
     for _ in range(num_iterations):
         #max_value = max(values)
         idx_max = values.index(max(values)) 
+        residue = int(max(values) * share)
         
-        residue = int(max(values) * share) 
-        values[idx_max + 1] += residue
+        if idx_max == len(values) - 1:
+            values[0] += residue    
+        else:    
+            values[idx_max + 1] += residue
+                
         values[idx_max - 1] += residue
-        values[idx_max] -= residue * 2
-        
-        
+        values[idx_max] -= residue * 2             
+                
     return values
 
 
 print(fair_sharer([0, 1000, 800, 0], 1))
 print(fair_sharer([0, 1000, 800, 0], 2))
+print(fair_sharer([0, 0, 800, 1000], 1))
+print(fair_sharer([1000, 0, 800, 0], 1))
